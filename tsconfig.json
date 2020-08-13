@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",                          
+    "module": "commonjs",    
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors":true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }     
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": []
+}

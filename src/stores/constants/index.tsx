@@ -1,0 +1,11 @@
+// bind const
+export const REQUEST_BIND_LIST = 'REQUEST_BIND_LIST'
+export type REQUEST_BIND_LIST = typeof REQUEST_BIND_LIST
+export const RECEIVE_BIND_LIST = 'RECEIVE_BIND_LIST'
+export type RECEIVE_BIND_LIST = typeof RECEIVE_BIND_LIST
+
+// auth info const
+export const REQUEST_AUTH_INFO = 'REQUEST_AUTH_INFO'
+export type REQUEST_AUTH_INFO = typeof REQUEST_AUTH_INFO
+export const RECEIVE_AUTH_INFO = 'RECEIVE_AUTH_INFO'
+export type RECEIVE_AUTH_INFO = typeof RECEIVE_AUTH_INFO

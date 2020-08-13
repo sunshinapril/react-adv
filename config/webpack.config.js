@@ -3,17 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } =  require('clean-webpack-plugin');
 const Webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
-console.log(isDev)
 module.exports = {
     mode:isDev ? 'development' : 'production',
     entry:{
-        index:[path.resolve(__dirname,'../src/index.js')]
+        index:[path.resolve(__dirname,'../src/index.tsx')]
     },
     output:{
         filename:'[name].[hash:8].js',
         chunkFilename:'[name].[chunkhash:8].js',
-        path: path.resolve(__dirname, './dist')
+        path: path.resolve(__dirname, '../dist')
     },
     module: {
         rules: [
@@ -42,7 +42,12 @@ module.exports = {
                 use:[
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
-                        loader:'css-loader'
+                        loader:'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                            }
+                        }
                     },{
                         loader:'less-loader',
                     },
@@ -85,15 +90,39 @@ module.exports = {
                 }
             },
             {
-                test: /\.js$/,
+                test:/\.tsx?$/,
+                exclude: /(node_modules)/,
+                use:[
+                    {   
+                        loader:'babel-loader?cacheDirectory=true',
+                        options:{
+                            presets:['@babel/preset-env','@babel/preset-react'],
+                            plugins:['@babel/plugin-syntax-dynamic-import',['@babel/plugin-transform-runtime']]
+                        },
+                    },         
+                    'ts-loader'
+                ]
+            },
+            {
+                enforce:"pre",
+                test:/\.js$/,
+                loader:"source-map-loader"
+            },
+            {
+                test: /\.js[x]?$/,
                 exclude: /node_modules/,
                 include: path.join(__dirname,'../src'),
-                loader: 'babel-loader',
-                options:{
-                    // presets:['@babel/preset-env','@babel/preset-react'],
-                    plugins:['@babel/plugin-syntax-dynamic-import',['@babel/plugin-transform-runtime']]
-                }
-            }
+                use:[
+                    {   
+                        loader:'babel-loader?cacheDirectory=true',
+                        options:{
+                            presets:['@babel/preset-env','@babel/preset-react'],
+                            plugins:['@babel/plugin-syntax-dynamic-import',['@babel/plugin-transform-runtime']]
+                        },
+                    }
+                ]
+            },
+            
         ]
     },
     plugins: [
@@ -111,15 +140,16 @@ module.exports = {
                 NODE_ENV:isDev ? '"development"':'"production"'
             }
         }),
+        new TsconfigPathsPlugin()
     ],
     resolve:{
         modules:['node_modules'],
-        extensions: [".ts", ".tsx", ".js", ".json"],
+        extensions: [".ts", ".tsx", ".js", ".json", ".jsx"],
         alias:{
-            '@src':path.join(__dirname,'../src')
+            '@':path.join(__dirname,'../src')
         }
     },
-    devtool:'inline-source-map',
+    devtool:'source-map',
     devServer: {
         contentBase: path.join(__dirname,'../dist'),
         hot:true,
