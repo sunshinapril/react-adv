@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>	</title>
+</head>
+<body>
+	<div id="input-upload-file" class="box-shadow">
+  <span>upload! (ღ˘⌣˘ღ)</span>
+  <input type="file" class="upload" id="fileUp" name="fileUpload">
+</div>
+<pre id="infos"></pre>
+</body>
+<script>	
+class Point{
+	constructor(x,y) {
+		this.x = x;
+		this.y = y;
+	}
+	toString() {
+		return `${this.x},${this.y}`
+	}
+}
+function_name(1, 2);
+function function_name() {
+	console.log(arguments);
+	// body...
+}
+var myVideos = [];
+
+window.URL = window.URL || window.webkitURL;
+
+document.getElementById('fileUp').onchange = setFileInfo;
+
+function setFileInfo() {
+  var files = this.files;
+  console.log(files);
+  myVideos.push(files[0]);
+  var video = document.createElement('video');
+  video.preload = 'metadata';
+
+  video.onloadedmetadata = function() {
+    window.URL.revokeObjectURL(video.src);
+    var duration = video.duration;
+    myVideos[myVideos.length - 1].duration = duration;
+    updateInfos();
+  }
+
+  video.src = URL.createObjectURL(files[0]);;
+}
+
+
+function updateInfos() {
+  var infos = document.getElementById('infos');
+  infos.textContent = "";
+  for (var i = 0; i < myVideos.length; i++) {
+    infos.textContent += myVideos[i].name + " duration: " + myVideos[i].duration + '\n' + "size:" +  myVideos[i].size;
+  }
+}
+</script>
+</html>

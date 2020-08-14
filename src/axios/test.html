@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+	function* helloWorldGenerator(){
+		yield 'hello';
+		yield 'world';
+		return 'ending'
+	}
+	var hw = helloWorldGenerator();
+	console.log(hw.next());
+	console.log(hw.next());
+	console.log(hw.next());
+	function deepClone(obj) {
+		if (obj === null || (typeof obj !== "object" && typeof !== 'function')) return obj;
+		let o = Object.prototype.toString.call(obj) === '[object Array]' ? [] : {};
+		for(i in obj) {
+			if (obj.hasOwnProperty(i)) {
+				o[i] = typeof obj[i] === 'object' ? deepClone(obj[i]) : obj[i];
+			}
+		}
+		return o;
+	}
+	var a = {b: 33, c: {h: 'hh'}}
+	var b = deepClone(a);
+	console.log(a.c.h === b.c.h);
+	console.log(b);
+</script>
+</html>

@@ -1,0 +1,82 @@
+ 
+ls -a 查看所有的文件，包括隐藏文件，以.开头的文件；
+
+pwd 显示当前所在目录；
+
+
+mkdir 创建目录，用法mkdir test，命令后接目录的名称
+
+rmdir 删除空目录
+
+rm 删除文件或者目录，用法 rm -rf test.txt (-r表示递归  -f表示强制)
+
+
+cp 拷贝文件  用法 cp old.text /tmp/new.txt , 常用来备份；如果拷贝目录需要加  -r 参数
+
+
+
+mv 重命名或者移动文件或者目录  用法 mv old.text  new.text
+
+touch 创建文件，用法 ， touch test.txt,如果文件存在，则表示修改当前文件时间；
+
+Useradd 创建用户 用法 useradd wugk , userdel删除用户
+
+Groupadd 创建组， 用法 groupadd wugk1 , groupdel 删除组；
+
+find查找文件或目录，用法 find  /home  -name  “test.txt”,命令格式为:
+
+find 后接查找的目录，-name指定需要查找的文件名称，名称可以使用*表示所有。
+
+find  /home  -name  “*.txt” ;查找/home目录下，所有以.txt结尾的文件或者目录。
+
+
+vi 修改某个文件，vi有三种模式
+
+命令行模式、文本模式、末行模式
+
+默认vi打开一个文件，首先是命令行模式，然后按i进入文本输入模式，可以在文件里写入字符等等信息。
+
+写完后，按esc进入命令模式，然后输入:进入末行模式，例如输入:wq表示保存退出。
+
+如果想直接退出，不保存，可以执行:q!， q!叹号表示强制退出。
+
+cat 查看文件内容，用法 cat test.txt 可以看到test.txt内容
+
+more 查看文件内容，分页查看，cat是全部查看，如果篇幅很多，只能看到最后的篇幅。可以使用cat和more同时使用,例如：
+
+ cat  test.txt |more 分页显示text内容，|符号是管道符，用于把|前的输出作为后面命令的输入。
+
+echo 回显，用法 echo ok，会显示ok，输入什么就打印什么。
+
+echo  ok  > test.txt ；把ok字符覆盖test.txt内容，>表示追加并覆盖的意思。
+
+>>两个大于符号，表示追加，echo ok >> test.txt,表示向test.txt文件追加OK字符，不覆盖原文件里的内容。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
